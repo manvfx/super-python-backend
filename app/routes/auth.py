@@ -1,5 +1,7 @@
 from fastapi import APIRouter
 
+from app.models.user import ResponseModel
+
 authRoute = APIRouter()
 
 @authRoute.post("/login")
@@ -11,6 +13,10 @@ def register():
     return {"message": "Registration successful"}
 
 
-@authRoute.get("/me")    
+@authRoute.get("/me",response_model=ResponseModel)    
 def me():
-    return "current user information"
+    response = {
+        "message": "Success",
+        "data": {"key": "value"}
+    }
+    return ResponseModel(**response)
