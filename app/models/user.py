@@ -1,6 +1,7 @@
 from datetime import datetime
 from pydantic import BaseModel, EmailStr, constr
 
+
 class User(BaseModel):
     firstName: str
     lastName: str
@@ -9,9 +10,11 @@ class User(BaseModel):
     created_at: datetime | None = None
     updated_at: datetime | None = None
 
+
 class UserAuth(BaseModel):
     email: str
     password: str
+
 
 class ResponseModel(BaseModel):
     message: str
@@ -20,6 +23,7 @@ class ResponseModel(BaseModel):
     # Define arguments for the model
     def __init__(self, message: str, data: dict):
         super().__init__(message=message, data=data)
+
 
 # def ResponseModel(data, message):
 #     return {
@@ -34,4 +38,4 @@ def ErrorResponseModel(error, code, message):
         "error": error,
         "code": code,
         "message": message,
-    }    
+    }

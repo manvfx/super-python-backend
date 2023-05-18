@@ -17,9 +17,10 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=['*'],
-    allow_headers=['*'],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
 
 @app.get("/", tags=["Root"])
 async def read_root():
@@ -27,5 +28,6 @@ async def read_root():
         "message": "Welcome to this app!",
     }
 
-app.include_router(authRoute, prefix='/api/v1',tags = ['Auth'])
-app.include_router(userRoute, prefix='/api/v1',tags = ['Users'])
+
+app.include_router(authRoute, prefix="/api/v1", tags=["Auth"])
+app.include_router(userRoute, prefix="/api/v1", tags=["Users"])
