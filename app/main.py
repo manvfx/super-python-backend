@@ -1,6 +1,7 @@
 from fastapi import FastAPI
-from app.database import create_user, get_users
 from fastapi.middleware.cors import CORSMiddleware
+from app.routes.auth import authRoute
+from app.routes.user import userRoute
 
 app = FastAPI(
     title="Super Backend",
@@ -9,7 +10,7 @@ app = FastAPI(
 
 origins = [
     "http://localhost",
-    "http://localhost:8080",
+    "http://localhost:8000",
 ]
 
 app.add_middleware(
@@ -26,12 +27,5 @@ async def read_root():
         "message": "Welcome to this app!",
     }
 
-@app.post("/users")
-def create_user_endpoint(user_data: dict):
-    create_user(user_data)
-    return {"message": "User created successfully"}
-
-@app.get("/users")
-def get_users_endpoint():
-    users = get_users()
-    return {"users": users}
+app.include_router(authRoute, prefix='/api/v1',tags = ['Auth'])
+app.include_router(userRoute, prefix='/api/v1',tags = ['Users'])
